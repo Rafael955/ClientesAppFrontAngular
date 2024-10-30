@@ -3,12 +3,12 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar', //seletor para exibir o componente em HTML
-  standalone: true, //coponente independente
+  standalone: true, //componente independente
   imports: [
     RouterLink
   ], //importar bibliotecas ou outros componentes
-  templateUrl: './navbar.component.html', //define a pagina HTML do componente
-  styleUrl: './navbar.component.css' //defone a folha de estilos CSS do componente
+  templateUrl: './navbar.component.html', //define a página HTML do componente
+  styleUrl: './navbar.component.css' //define a folha de estilos CSS do componente
 })
 export class NavbarComponent {
 

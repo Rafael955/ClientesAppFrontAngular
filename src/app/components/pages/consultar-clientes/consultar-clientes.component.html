@@ -16,11 +16,22 @@
         </thead>
         <tbody>
             <tr *ngFor="let c of clientes">
-                <td>{{c.nome | uppercase}}</td>
-                <td>{{c.cpf}}</td>
-                <td>{{c.email | lowercase}}</td>
-                <td>{{c.dataInclusao | date : 'dd/MM/yy HH:mm'}}</td>
-                <td>{{c.dataUltimaAlteracao | date : 'dd/MM/yy HH:mm'}}</td>
+                <td>{{ c.nome | uppercase }}</td>
+                <td>{{ c.cpf }}</td>
+                <td>{{ c.email | lowercase }}</td>
+                <td>{{ c.dataInclusao | date : 'dd/MM/yy HH:mm' }}</td>
+                <td>{{ c.dataUltimaAlteracao | date : 'dd/MM/yy HH:mm' }}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary me-2"
+                        [routerLink]="['/pages/editar-clientes', c.id]">
+                        
+                        Editar
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger"
+                        (click)="onDelete(c.id)">
+                        Excluir
+                    </button>
+                </td>
             </tr>
         </tbody>
         <tfoot>
