@@ -2,6 +2,21 @@
 <p>Listagem de clientes cadastrados no sistema.</p>
 <hr/>
 
+<!-- mensagem de sucesso -->
+<div *ngIf="mensagemSucesso" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Sucesso!</strong> {{ mensagemSucesso }}
+    <button (click)="mensagemSucesso = ''" type="button" class="btn-close" aria-label="Close"></button>
+</div>
+
+<!-- desenhando o paginador -->
+<div class="text-center">
+    <pagination-controls
+        previousLabel="Página anterior"
+        nextLabel="Próxima página"
+        (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+</div>
+
 <div class="table-responsive">
     <table class="table table-sm">
         <thead>
@@ -15,9 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let c of clientes">
+            <tr *ngFor="let c of clientes | paginate : { itemsPerPage: 5, currentPage: pagina}">
                 <td>{{ c.nome | uppercase }}</td>
-                <td>{{ c.cpf }}</td>
+                <td>{{ c.cpf | mask : "000.000.000-00" }}</td>
                 <td>{{ c.email | lowercase }}</td>
                 <td>{{ c.dataInclusao | date : 'dd/MM/yy HH:mm' }}</td>
                 <td>{{ c.dataUltimaAlteracao | date : 'dd/MM/yy HH:mm' }}</td>

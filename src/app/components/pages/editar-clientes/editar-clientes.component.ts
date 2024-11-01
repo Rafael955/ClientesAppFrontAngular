@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-editar-clientes',
@@ -10,7 +13,11 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective
+  ],
+  providers:[
+    provideNgxMask()
   ],
   templateUrl: './editar-clientes.component.html',
   styleUrl: './editar-clientes.component.css'
@@ -25,18 +32,25 @@ export class EditarClientesComponent {
    //construtor (injeção de dependência)
    constructor(
      private httpClient: HttpClient,
-     private activatedRoute: ActivatedRoute
+     private activatedRoute: ActivatedRoute,
+     private spinnerService: NgxSpinnerService
    ) {}
 
    //função executada no momento em que o componente é aberto
    ngOnInit() {
+      //exibir tela de carregamento
+      this.spinnerService.show();
+
       //capturando o id enviado na URL do navegador (ROTA)
       this.id = this.activatedRoute.snapshot.paramMap.get('id') as string;
       //consultando os dados do cliente baseado no id
-      this.httpClient.get('http://localhost:5022/api/clientes/' + this.id)
+      this.httpClient.get(environment.clientesApi + '/' + this.id)
         .subscribe({
           next : (data) => {
             this.form.patchValue(data); //preenchendo o formulário
+
+             //esconde tela de carregamento
+            this.spinnerService.hide();
           }
         })
    }
@@ -60,20 +74,29 @@ export class EditarClientesComponent {
    }
 
    onSubmit() {
+        //exibir tela de carregamento
+        this.spinnerService.show();
+        
         //limpar as mensagens
         this.mensagemSucesso = '';
         this.mensagemErro = '';
     
         //fazendo uma requisição POST para a API
-        this.httpClient.put('http://localhost:5022/api/clientes/' + this.id, this.form.value)
+        this.httpClient.put(environment.clientesApi + '/' + this.id, this.form.value)
           .subscribe({ //capturando o retorno
             next: (data: any) => { //capturando resposta de sucesso
               //gerando mensagem de sucesso
               this.mensagemSucesso = `Cliente ${data.nome} atualizado com sucesso.`;
+
+              //esconde tela de carregamento
+              this.spinnerService.hide();
             },
             error: (e) => { //capturando resposta de erro
               //capturando mensagem de erro
               this.mensagemErro = e.error.message;
+
+              //esconde tela de carregamento
+              this.spinnerService.hide();
             }
         });
    }

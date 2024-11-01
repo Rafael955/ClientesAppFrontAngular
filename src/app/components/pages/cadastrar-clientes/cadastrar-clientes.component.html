@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-3">
             <label>CPF:</label>
-            <input type="text" class="form-control" formControlName="cpf" placeholder="Digite o cpf aqui"/>
+            <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" placeholder="Digite o cpf aqui"/>
             <div class="text-danger" *ngIf="f['cpf'].touched && f['cpf'].invalid">
                 Por favor, informe o CPF com somente 11 números.
             </div>

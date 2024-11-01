@@ -15,5 +15,9 @@ export const routes: Routes = [
     {
         path: 'pages/editar-clientes/:id', //ROTA
         component: EditarClientesComponent //COMPONENTE
+    },
+    {
+        path: '', pathMatch: 'full', //RAIZ DO PROJETO
+        redirectTo: 'pages/consultar-clientes'
     }
 ];
