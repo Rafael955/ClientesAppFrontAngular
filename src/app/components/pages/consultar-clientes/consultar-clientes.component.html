@@ -8,13 +8,16 @@
     <button (click)="mensagemSucesso = ''" type="button" class="btn-close" aria-label="Close"></button>
 </div>
 
-<!-- desenhando o paginador -->
-<div class="text-center">
-    <pagination-controls
-        previousLabel="Página anterior"
-        nextLabel="Próxima página"
-        (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+<!-- mensagem de erro -->
+<div *ngIf="mensagemWarning" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Aviso!</strong> {{ mensagemWarning }}
+    <button (click)="mensagemWarning = ''" type="button" class="btn-close" aria-label="Close"></button>
+</div>
+
+<!-- mensagem de erro -->
+<div *ngIf="mensagemError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Erro!</strong> {{ mensagemError }}
+    <button (click)="mensagemError = ''" type="button" class="btn-close" aria-label="Close"></button>
 </div>
 
 <div class="table-responsive">
@@ -57,4 +60,13 @@
             </tr>
         </tfoot>
     </table>
+</div>
+
+<!-- desenhando o paginador -->
+<div class="text-center">
+    <pagination-controls
+        previousLabel="Página anterior"
+        nextLabel="Próxima página"
+        (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
 </div>

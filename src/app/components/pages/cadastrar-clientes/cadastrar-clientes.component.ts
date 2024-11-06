@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,7 +11,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
   standalone: true,
   imports: [
     CommonModule, //diretivas básicas do Angular
-    FormsModule, //bilbioteca para construção de formulários
+    FormsModule, //biblioteca para construção de formulários
     ReactiveFormsModule, //bilbioteca para construção de formulários
     NgxMaskDirective //biblioteca para mascarar campos
   ],
@@ -26,7 +26,9 @@ export class CadastrarClientesComponent {
   //atributos
   mensagemSucesso: string = '';
   mensagemErro: string = '';
-
+ 
+  // private spinnerService = inject(NgxSpinnerService);
+  
   //construtor (injeção de dependência)
   constructor(
     private httpClient: HttpClient,

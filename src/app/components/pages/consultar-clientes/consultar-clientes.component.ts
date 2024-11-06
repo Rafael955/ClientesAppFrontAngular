@@ -28,6 +28,8 @@ export class ConsultarClientesComponent {
   clientes: any[] = []; //array de objetos
   pagina: number = 1; //paginação
   mensagemSucesso: string = '' //exibir mensagem
+  mensagemWarning: string = '' //exibir mensagem
+  mensagemError: string = '' //exibir mensagem
 
   //injeção de dependência
   constructor(
@@ -48,6 +50,16 @@ export class ConsultarClientesComponent {
           //armazenando os dados obtidos da API
           this.clientes = data as any[];
           
+          //esconde tela de carregamento
+          this.spinnerService.hide();
+        },
+        error: (e) => { //capturando resposta de erro
+          
+          if(e.message.error == null)
+            this.mensagemWarning = `Não foi possível carregar a lista de clientes!`;
+          else
+            this.mensagemError = e.message.error;
+
           //esconde tela de carregamento
           this.spinnerService.hide();
         }

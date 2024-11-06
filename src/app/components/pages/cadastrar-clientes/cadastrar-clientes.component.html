@@ -17,25 +17,25 @@
 <!-- Formulário de cadastro -->
  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+    <div class="col mb-3">
+        <div class="col-md-6 mb-3">
             <label>Nome do cliente:</label>
             <input type="text" class="form-control" formControlName="nome" placeholder="Digite o nome aqui"/>
             <div class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
                 Por favor, informe o nome do cliente de 6 a 150 caracteres.
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6 mb-3">
             <label>CPF:</label>
             <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" placeholder="Digite o cpf aqui"/>
             <div class="text-danger" *ngIf="f['cpf'].touched && f['cpf'].invalid">
                 Por favor, informe o CPF com somente 11 números.
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6 mb-3">
             <label>Email:</label>
             <input type="text" class="form-control" formControlName="email" placeholder="Digite o email aqui"/>
-            <div class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+            <div class="text-danger" *ngIf="(f).email.touched && f['email'].invalid">
                 Por favor, informe um endereço de email válido.
             </div>
         </div>
